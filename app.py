@@ -1,10 +1,10 @@
 from flask import Flask
 
-from config.settings import DEBUG
+from config import Config
 from src.ext import configuration
 
 
-if DEBUG:
+if Config.DEBUG:
     import logging
     import warnings
 
@@ -22,6 +22,7 @@ if DEBUG:
 
 def minimal_app():
     app = Flask(__name__, instance_relative_config=True)
+    app.config.from_object(Config)
     app.url_map.strict_slashes = False
     configuration.init_app(app)
     return app
