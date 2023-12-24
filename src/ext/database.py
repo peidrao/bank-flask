@@ -9,8 +9,9 @@ def init_app(app):
     """Initialize models"""
     from src.infrastructure.database import (  # noqa: F401
         AccountTable,
-        PersonTable,
+        UserTable,
         TransactionTable,
+        BankTable,
     )
 
     """Initialize database"""
