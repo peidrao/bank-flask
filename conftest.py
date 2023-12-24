@@ -5,9 +5,9 @@ from flask_jwt_extended import create_access_token
 from src.blueprints import api_v1
 from src.domain.entities.account import Account
 from src.ext import database, token
-from src.infrastructure.database.person import PersonTable
+from src.infrastructure.database.user import UserTable
 from src.infrastructure.repositories.account import AccountRepository
-from src.infrastructure.repositories.person import PersonRepository
+from src.infrastructure.repositories.user import PersonRepository
 from src.infrastructure.repositories.transaction import TransactionRepository
 
 
@@ -63,7 +63,7 @@ def person(db, fake) -> PersonRepository:
         "cpf": fake.cpf(),
         "birth_date": fake.date_of_birth(),
     }
-    person = PersonTable(**person_data)
+    person = UserTable(**person_data)
     person.set_password("test12345")
 
     db.session.add(person)

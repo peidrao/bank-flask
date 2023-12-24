@@ -10,3 +10,6 @@ docker.build:
 
 flask.run:
 	$(FLASK) run --host=0.0.0.0 --debug
+
+db.migrate:
+	flask db upgrade
