@@ -1,6 +1,6 @@
 from flask import Flask
 
-from config import Config
+from config.settings import Config
 from src.ext import configuration
 
 

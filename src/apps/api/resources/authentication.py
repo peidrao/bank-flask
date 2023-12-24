@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from marshmallow import ValidationError
 
-from src.infrastructure.repositories import PersonRepository
+from src.infrastructure.repositories import UserRepository
 from src.apps.api.adapters import AuthRequestAdapter
 from src.domain.entities import AuthRequest
 from src.apps.usecases import AuthenticationUseCase
@@ -23,5 +23,5 @@ class AuthResource(Resource):
 
         request_model = AuthRequest(email, password)
 
-        auth = AuthenticationUseCase(repository=PersonRepository(db.session))
+        auth = AuthenticationUseCase(repository=UserRepository(db.session))
         return auth(request_model)

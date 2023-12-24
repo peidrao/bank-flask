@@ -4,7 +4,7 @@ from flask_restful import Resource
 from marshmallow import ValidationError
 
 from src.infrastructure.repositories import (
-    PersonRepository,
+    UserRepository,
     AccountRepository,
     TransactionRepository,
 )
@@ -19,7 +19,7 @@ from src.apps.usecases import (
 from src.ext.database import db
 
 
-class PersonResource(Resource):
+class UserResource(Resource):
     def post(self):
         try:
             adapter = PersonRequestAdapter()
@@ -28,17 +28,18 @@ class PersonResource(Resource):
             return {"message": str(e)}, 400
 
         email = data.get("email", None)
-        name = data.get("name", None)
+        name = data.get("full_name", None)
         password = data.get("password", None)
         cpf = data.get("cpf", None)
-        birth_date = data.get("birth_date", None)
-
         request_person = User(
-            email=email, password=password, name=name, cpf=cpf, birth_date=birth_date
+            email=email,
+            password=password,
+            full_name=name,
+            cpf=cpf,
         )
 
         person = CreatePersonUseCase(
-            person_repository=PersonRepository(db.session),
+            person_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
         return person(request_person)
@@ -48,7 +49,7 @@ class PersonResource(Resource):
         current_user = get_jwt_identity()
 
         person = PersonMeUseCase(
-            person_repository=PersonRepository(db.session),
+            person_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
 

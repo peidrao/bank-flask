@@ -1,13 +1,13 @@
 from flask import jsonify
 from src.domain.entities import AccountDeposit, Account, Transaction
-from src.infrastructure.repositories import PersonRepository, AccountRepository
+from src.infrastructure.repositories import UserRepository, AccountRepository
 from src.infrastructure.repositories.transaction import TransactionRepository
 
 
 class AccountUpdateUseCase:
     def __init__(
         self,
-        person_repository: PersonRepository,
+        person_repository: UserRepository,
         account_repository: AccountRepository,
     ):
         self.person_repository = person_repository
@@ -31,7 +31,7 @@ class AccountUpdateUseCase:
 class AccountDepositUseCase:
     def __init__(
         self,
-        person_repository: PersonRepository,
+        person_repository: UserRepository,
         account_repository: AccountRepository,
         transaction_repository: TransactionRepository,
     ):
@@ -98,7 +98,7 @@ class AccountGetUseCase:
 class AccountWithdrawUseCase:
     def __init__(
         self,
-        person_repository: PersonRepository,
+        person_repository: UserRepository,
         account_repository: AccountRepository,
         transaction_repository: TransactionRepository,
     ):

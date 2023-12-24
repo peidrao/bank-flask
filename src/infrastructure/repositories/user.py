@@ -6,7 +6,7 @@ from src.infrastructure.database import UserTable
 from src.domain.entities import User
 
 
-class PersonRepository:
+class UserRepository:
     def __init__(self, session=None):
         self.session = session
 
@@ -14,11 +14,11 @@ class PersonRepository:
         person_db = UserTable.query.filter_by(email=person.email).first()
         if person_db:
             raise ValidationError("Pessoa já cadastrado")
+    
         person_db = UserTable(
             email=person.email,
-            name=person.name,
+            full_name=person.name,
             cpf=person.cpf,
-            birth_date=person.birth_date,
         )
         person_db.set_password(person.password)
         self.session.add(person_db)
@@ -44,11 +44,10 @@ class PersonRepository:
         if not person:
             return None
         person = User(
-            name=person.name,
+            full_name=person.full_name,
             email=person.email,
             cpf=person.cpf,
             id=person.id,
-            birth_date=person.birth_date,
             password=person.password,
         )
         return person

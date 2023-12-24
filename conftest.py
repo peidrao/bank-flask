@@ -7,7 +7,7 @@ from src.domain.entities.account import Account
 from src.ext import database, token
 from src.infrastructure.database.user import UserTable
 from src.infrastructure.repositories.account import AccountRepository
-from src.infrastructure.repositories.user import PersonRepository
+from src.infrastructure.repositories.user import UserRepository
 from src.infrastructure.repositories.transaction import TransactionRepository
 
 
@@ -55,7 +55,7 @@ def authenticated_header():
 
 
 @pytest.fixture
-def person(db, fake) -> PersonRepository:
+def person(db, fake) -> UserRepository:
     person_data = {
         "email": fake.email(),
         "password": "test12345",
@@ -93,5 +93,5 @@ def create_account(account_repository: AccountRepository):
 
 
 @pytest.fixture
-def person_repository(db) -> PersonRepository:
-    return PersonRepository(session=db.session)
+def person_repository(db) -> UserRepository:
+    return UserRepository(session=db.session)

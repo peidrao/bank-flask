@@ -3,11 +3,11 @@ from flask_jwt_extended import create_access_token, create_refresh_token
 
 from src.domain.exceptions import PersonNotFoundError
 from src.domain.entities import AuthRequest, AuthResponse
-from src.infrastructure.repositories import PersonRepository
+from src.infrastructure.repositories import UserRepository
 
 
 class AuthenticationUseCase:
-    def __init__(self, repository: PersonRepository):
+    def __init__(self, repository: UserRepository):
         self.repository = repository
 
     def __call__(self, request: AuthRequest) -> AuthResponse:

@@ -21,9 +21,8 @@ class AuthRequestAdapter(Schema):
 class PersonRequestAdapter(Schema):
     email = fields.Email(required=True)
     password = fields.Str(required=True)
-    name = fields.Str(required=True)
+    full_name = fields.Str(required=True)
     cpf = fields.Str(required=True)
-    birth_date = fields.Date(required=True)
 
 
 class AuthAdapter(Schema):
