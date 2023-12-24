@@ -1,10 +1,10 @@
 from marshmallow import ValidationError
 import pytest
-from src.domain.entities.person import Person
+from src.domain.entities.user import User
 
 
 def test_create_creates_person_successfully(person_repository):
-    person = Person(
+    person = User(
         name="John Doe",
         email="johndoe@example.com",
         cpf="12345678901",
@@ -18,12 +18,12 @@ def test_create_creates_person_successfully(person_repository):
 
 
 def test_create_raises_validation_error_if_email_already_exists(person_repository):
-    person1 = Person(
+    person1 = User(
         name="Alice", email="alice@example.com", cpf="11111111111", password="oi"
     )
     person_repository.create(person1)
 
-    person2 = Person(
+    person2 = User(
         name="Bob", email="alice@example.com", cpf="22222222222", password="oisas"
     )
 

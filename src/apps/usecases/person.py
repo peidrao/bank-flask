@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from src.infrastructure.repositories import PersonRepository, AccountRepository
-from src.domain.entities import Person, Account
+from src.domain.entities import User, Account
 from src.infrastructure.repositories.transaction import TransactionRepository
 
 
@@ -14,7 +14,7 @@ class CreatePersonUseCase:
         self.person_repository = person_repository
         self.account_repository = account_repository
 
-    def __call__(self, request: Person):
+    def __call__(self, request: User):
         try:
             person = self.person_repository.create(request)
             self.account_repository.create(
@@ -43,7 +43,7 @@ class PersonMeUseCase:
         if person:
             account = self.account_repository.get_by_person_id(person_id)
 
-        response = Person(
+        response = User(
             id=person.id,
             name=person.name,
             email=person.email,

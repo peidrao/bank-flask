@@ -9,7 +9,7 @@ from src.infrastructure.repositories import (
     TransactionRepository,
 )
 from src.apps.api.adapters import PersonRequestAdapter
-from src.domain.entities import Person
+from src.domain.entities import User
 from src.apps.usecases import (
     CreatePersonUseCase,
     PersonMeUseCase,
@@ -33,7 +33,7 @@ class PersonResource(Resource):
         cpf = data.get("cpf", None)
         birth_date = data.get("birth_date", None)
 
-        request_person = Person(
+        request_person = User(
             email=email, password=password, name=name, cpf=cpf, birth_date=birth_date
         )
 

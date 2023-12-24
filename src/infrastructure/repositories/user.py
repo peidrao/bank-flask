@@ -2,19 +2,19 @@ from marshmallow import ValidationError
 from typing import Optional
 from werkzeug.security import check_password_hash
 
-from src.infrastructure.database import PersonTable
-from src.domain.entities import Person
+from src.infrastructure.database import UserTable
+from src.domain.entities import User
 
 
 class PersonRepository:
     def __init__(self, session=None):
         self.session = session
 
-    def create(self, person: Person) -> Person:
-        person_db = PersonTable.query.filter_by(email=person.email).first()
+    def create(self, person: User) -> User:
+        person_db = UserTable.query.filter_by(email=person.email).first()
         if person_db:
             raise ValidationError("Pessoa já cadastrado")
-        person_db = PersonTable(
+        person_db = UserTable(
             email=person.email,
             name=person.name,
             cpf=person.cpf,
@@ -26,11 +26,11 @@ class PersonRepository:
         person.id = person_db.id
         return person
 
-    def get(self, id: int) -> Optional[Person]:
-        person = PersonTable.query.filter_by(id=id).first()
+    def get(self, id: int) -> Optional[User]:
+        person = UserTable.query.filter_by(id=id).first()
         if not person:
             return None
-        person = Person(
+        person = User(
             name=person.name,
             email=person.email,
             cpf=person.cpf,
@@ -39,11 +39,11 @@ class PersonRepository:
         )
         return person
 
-    def get_by_email(self, email: str) -> Optional[Person]:
-        person = PersonTable.query.filter_by(email=email).first()
+    def get_by_email(self, email: str) -> Optional[User]:
+        person = UserTable.query.filter_by(email=email).first()
         if not person:
             return None
-        person = Person(
+        person = User(
             name=person.name,
             email=person.email,
             cpf=person.cpf,
@@ -53,7 +53,7 @@ class PersonRepository:
         )
         return person
 
-    def login(self, email: str, password: str) -> Person:
+    def login(self, email: str, password: str) -> User:
         person = self.get_by_email(email)
 
         if not person:

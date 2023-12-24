@@ -3,7 +3,7 @@ from datetime import date
 
 
 @dataclass
-class Person:
+class User:
     id: int = None
     name: str = None
     email: str = None

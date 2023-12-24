@@ -7,7 +7,7 @@ from sqlalchemy import desc
 from src.infrastructure.database import TransactionTable
 from src.domain.entities import Transaction
 from src.infrastructure.database.account import AccountTable
-from src.infrastructure.database.person import PersonTable
+from src.infrastructure.database.user import UserTable
 
 
 class TransactionRepository:
@@ -49,8 +49,8 @@ class TransactionRepository:
             TransactionTable.query.join(
                 AccountTable, AccountTable.id == TransactionTable.account_id
             )
-            .join(PersonTable, PersonTable.id == AccountTable.person_id)
-            .filter(PersonTable.id == person_id)
+            .join(UserTable, UserTable.id == AccountTable.person_id)
+            .filter(UserTable.id == person_id)
             .order_by(desc(TransactionTable.transaction_date))
             .all()
         )
