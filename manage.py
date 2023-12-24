@@ -1,5 +1,6 @@
+import requests
 from app import create_app
-
+from config import Config
 
 app = create_app()
 
@@ -10,24 +11,27 @@ def manage():
 
 
 @manage.command()
-def createperson():
+def createbanks():
     from src.ext.database import db
-    from src.infrastructure.repositories import PersonRepository
-    from src.domain.entities import Person
+    from src.infrastructure.repositories import BankRepository
+    from src.infrastructure.database import BankTable
+    bank_repository = BankRepository(db.session)
+    response = requests.get(Config.BANK_REQUESTS)
 
-    person_repository = PersonRepository(db.session)
-    try:
-        person_repository.create(
-            Person(
-                name="Elon Musk",
-                email="elon@musk.com",
-                birth_date="1971-06-28",
-                password="123",
-            )
-        )
-        print("Pessoa criada com sucesso!")
-    except:
-        print("Já existe uma pessoa criada com esse email!")
+    if response.status_code == 200:
+        banks_list = response.json()["payload"]["blob"]["csv"][1:51]
+        for b in banks_list:
+            if not bank_repository.get(compe=b[0]):
+                bank = BankTable(
+                    compe=b[0],
+                    ispb=b[1],
+                    document=b[2],
+                    long_name=b[3],
+                    short_name=b[4]
+                )
+                db.session.add(bank)
+
+        db.session.commit()
 
 
 if __name__ == "__main__":
