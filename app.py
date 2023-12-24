@@ -12,7 +12,6 @@ if Config.DEBUG:
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        from flask_marshmallow import Marshmallow
 
     logging.basicConfig(level="DEBUG")
     log = logging.getLogger("urllib3")

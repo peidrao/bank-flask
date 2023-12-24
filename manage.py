@@ -15,6 +15,7 @@ def createbanks():
     from src.ext.database import db
     from src.infrastructure.repositories import BankRepository
     from src.infrastructure.database import BankTable
+
     bank_repository = BankRepository(db.session)
     response = requests.get(Config.BANK_REQUESTS)
 
@@ -27,7 +28,7 @@ def createbanks():
                     ispb=b[1],
                     document=b[2],
                     long_name=b[3],
-                    short_name=b[4]
+                    short_name=b[4],
                 )
                 db.session.add(bank)
 

@@ -13,3 +13,7 @@ flask.run:
 
 db.migrate:
 	flask db upgrade
+
+fmt:
+	ruff check . --fix
+	ruff format .
