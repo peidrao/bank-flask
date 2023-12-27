@@ -18,7 +18,7 @@ class AuthRequestAdapter(Schema):
     password = fields.Str(required=True)
 
 
-class PersonRequestAdapter(Schema):
+class UserRequestAdapter(Schema):
     email = fields.Email(required=True)
     password = fields.Str(required=True)
     full_name = fields.Str(required=True)

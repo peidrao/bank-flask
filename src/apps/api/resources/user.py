@@ -8,7 +8,7 @@ from src.infrastructure.repositories import (
     AccountRepository,
     TransactionRepository,
 )
-from src.apps.api.adapters import PersonRequestAdapter
+from src.apps.api.adapters import UserRequestAdapter
 from src.domain.entities import User
 from src.apps.usecases import (
     CreatePersonUseCase,
@@ -22,7 +22,7 @@ from src.ext.database import db
 class UserResource(Resource):
     def post(self):
         try:
-            adapter = PersonRequestAdapter()
+            adapter = UserRequestAdapter()
             data = adapter.load(request.json)
         except ValidationError as e:
             return {"message": str(e)}, 400
