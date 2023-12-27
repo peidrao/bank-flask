@@ -1,6 +1,6 @@
 from .authentication import AuthenticationUseCase  # noqa: F401
 from .user import (  # noqa: F401
-    CreatePersonUseCase,
+    CreateUserUseCase,
     UserMeUseCase,
     PersonDashboardUseCase,
 )

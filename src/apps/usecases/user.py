@@ -5,7 +5,7 @@ from src.domain.entities import User, Account
 from src.infrastructure.repositories.transaction import TransactionRepository
 
 
-class CreatePersonUseCase:
+class CreateUserUseCase:
     def __init__(
         self,
         user_repository: UserRepository,
@@ -22,8 +22,8 @@ class CreatePersonUseCase:
                     user_id=person.id, daily_withdrawal_limit=200.00
                 )
             )
-        except:
-            return {"erro": "Erro ao criar conta"}, 400
+        except Exception as exc:
+            return {"erro": exc.message}, exc.status_code
 
         return {"message": "Conta criada com sucesso!"}, 201
 
