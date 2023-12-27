@@ -13,9 +13,9 @@ class AccountUpdateUseCase:
         self.person_repository = person_repository
         self.account_repository = account_repository
 
-    def __call__(self, account_id: int, person_id, **kwargs):
+    def __call__(self, account_id: int, user_id, **kwargs):
         account = self.account_repository.get_by_args(
-            id=account_id, person_id=person_id
+            id=account_id, user_id=user_id
         )
 
         if not account:
@@ -83,10 +83,10 @@ class AccountGetUseCase:
     def __call__(
         self,
         account_id: int,
-        person_id: int,
+        user_id: int,
     ):
         account_db = self.account_repository.get_by_args(
-            id=account_id, person_id=person_id
+            id=account_id, user_id=user_id
         )
 
         if not account_db:
@@ -106,7 +106,7 @@ class AccountWithdrawUseCase:
         self.account_repository = account_repository
         self.transaction_repository = transaction_repository
 
-    def __call__(self, account: AccountDeposit, person_id: int):
+    def __call__(self, account: AccountDeposit, user_id: int):
         account_db = self.account_repository.get_by_args(id=account.account)
 
         total_value_transactions_by_account = (
@@ -157,9 +157,9 @@ class AccountsMeUseCase:
 
     def __call__(
         self,
-        person_id: int,
+        user_id: int,
     ):
-        account_db = self.account_repository.filter(person_id=person_id)
+        account_db = self.account_repository.filter(user_id=user_id)
 
         if not account_db:
             return []
@@ -176,11 +176,11 @@ class AccountTransactionsUseCase:
 
     def __call__(
         self,
-        person_id: int,
+        user_id: int,
         account_id: int,
     ):
         account_db = self.transaction_repository.filter_transactions_by_account(
-            person_id=person_id,
+            user_id=user_id,
             account_id=account_id,
         )
 

@@ -14,7 +14,7 @@ class UserRepository:
         person_db = UserTable.query.filter_by(email=person.email).first()
         if person_db:
             raise ValidationError("Pessoa já cadastrado")
-    
+
         person_db = UserTable(
             email=person.email,
             full_name=person.name,
@@ -27,17 +27,16 @@ class UserRepository:
         return person
 
     def get(self, id: int) -> Optional[User]:
-        person = UserTable.query.filter_by(id=id).first()
-        if not person:
+        user = UserTable.query.filter_by(id=id).first()
+        if not user:
             return None
-        person = User(
-            name=person.name,
-            email=person.email,
-            cpf=person.cpf,
-            id=person.id,
-            birth_date=person.birth_date,
+        user = User(
+            full_name=user.full_name,
+            email=user.email,
+            cpf=user.cpf,
+            id=user.id,
         )
-        return person
+        return user
 
     def get_by_email(self, email: str) -> Optional[User]:
         person = UserTable.query.filter_by(email=email).first()

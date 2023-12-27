@@ -15,28 +15,29 @@ def register_resource(blueprint, resource, routes):
     return api_blueprint
 
 
-auth_routes = [("/token", "AuthResource")]
-auth_blueprint = register_resource("auth", resources.AuthResource, auth_routes)
+auth_blueprint = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
+auth_v1 = Api(auth_blueprint)
+auth_v1.add_resource(resources.AuthResource, "/token")
 
-user_routes = [("/", "UserResource"), ("/dashboard", "PersonDashboardResource")]
-user_blueprint = register_resource("users", resources.UserResource, user_routes)
+user_blueprint = Blueprint("users", __name__, url_prefix="/api/v1/users")
+user_v1 = Api(user_blueprint)
+user_v1.add_resource(resources.UserResource, "/")
+user_v1.add_resource(resources.UserMeResource, "/me")
+user_v1.add_resource(resources.PersonDashboardResource, "/dashboard")
 
-account_routes = [
-    ("/", "AccountResource"),
-    ("/me", "AccountsMeResource"),
-    ("/<int:account_id>", "AccountDetailResource"),
-    ("/<int:account_id>/transactions", "GetTransactionsByAccountResource"),
-    ("/deposit", "AccountDepositResource"),
-    ("/withdraw", "AccountWithdrawResource"),
-]
-account_blueprint = register_resource(
-    "account", resources.AccountResource, account_routes
+account_blueprint = Blueprint("account", __name__, url_prefix="/api/v1/account")
+account_v1 = Api(account_blueprint)
+account_v1.add_resource(resources.AccountResource, "/")
+account_v1.add_resource(resources.AccountsMeResource, "/me")
+account_v1.add_resource(resources.AccountDetailResource, "/<int:account_id>")
+account_v1.add_resource(
+    resources.GetTransactionsByAccountResource, "/<int:account_id>/transactions"
 )
+account_v1.add_resource(resources.AccountDepositResource, "/deposit")
+account_v1.add_resource(resources.AccountWithdrawResource, "/withdraw")
 
-# Register Transaction resources
-transaction_routes = [("/withdraws", "GetLastWithdrawsResource")]
-transaction_blueprint = register_resource(
-    "transactions",
-    resources.GetLastWithdrawsResource,
-    transaction_routes,
+transaction_blueprint = Blueprint(
+    "transactions", __name__, url_prefix="/api/v1/transactions"
 )
+transaction_v1 = Api(transaction_blueprint)
+transaction_v1.add_resource(resources.GetLastWithdrawsResource, "/withdraws")

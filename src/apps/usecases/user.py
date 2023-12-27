@@ -8,18 +8,18 @@ from src.infrastructure.repositories.transaction import TransactionRepository
 class CreatePersonUseCase:
     def __init__(
         self,
-        person_repository: UserRepository,
+        user_repository: UserRepository,
         account_repository: AccountRepository,
     ):
-        self.person_repository = person_repository
+        self.user_repository = user_repository
         self.account_repository = account_repository
 
     def __call__(self, request: User):
         try:
-            person = self.person_repository.create(request)
+            person = self.user_repository.create(request)
             self.account_repository.create(
                 Account(
-                    person_id=person.id, account_type=1, daily_withdrawal_limit=200.00
+                    user_id=person.id, account_type=1, daily_withdrawal_limit=200.00
                 )
             )
         except:
@@ -28,26 +28,25 @@ class CreatePersonUseCase:
         return {"message": "Conta criada com sucesso!"}, 201
 
 
-class PersonMeUseCase:
+class UserMeUseCase:
     def __init__(
         self,
-        person_repository: UserRepository,
+        user_repository: UserRepository,
         account_repository: AccountRepository,
     ):
-        self.person_repository = person_repository
+        self.user_repository = user_repository
         self.account_repository = account_repository
 
-    def __call__(self, person_id: int):
-        person = self.person_repository.get(person_id)
+    def __call__(self, user_id: int):
+        person = self.user_repository.get(user_id)
 
         if person:
-            account = self.account_repository.get_by_person_id(person_id)
+            account = self.account_repository.get_by_user_id(user_id)
 
         response = User(
             id=person.id,
-            name=person.name,
+            full_name=person.full_name,
             email=person.email,
-            birth_date=person.birth_date,
             cpf=person.cpf,
             account=account,
         )
@@ -66,18 +65,18 @@ class PersonDashboardUseCase:
 
     def __call__(
         self,
-        person_id: int,
+        user_id: int,
     ):
         (
             transactions_db,
             transactions_cash_in,
             transactions_cash_out,
         ) = self.transaction_repository.filter_transactions_by_person(
-            person_id=person_id
+            user_id=user_id
         )
 
         accounts_amount, accounts_total = self.account_repository.get_accounts_info(
-            person_id
+            user_id
         )
 
         transactions = []

@@ -43,14 +43,14 @@ class TransactionRepository:
 
     def __filter_transactions_by_person(
         self,
-        person_id: int,
+        user_id: int,
     ) -> List[TransactionTable | None]:
         transactions_db = (
             TransactionTable.query.join(
                 AccountTable, AccountTable.id == TransactionTable.account_id
             )
-            .join(UserTable, UserTable.id == AccountTable.person_id)
-            .filter(UserTable.id == person_id)
+            .join(UserTable, UserTable.id == AccountTable.user_id)
+            .filter(UserTable.id == user_id)
             .order_by(desc(TransactionTable.transaction_date))
             .all()
         )
@@ -58,9 +58,9 @@ class TransactionRepository:
         return transactions_db
 
     def filter_transactions_by_person(
-        self, person_id: int
+        self, user_id: int
     ) -> Tuple[List[TransactionTable] | None, int, int]:
-        transactions_db = self.__filter_transactions_by_person(person_id)
+        transactions_db = self.__filter_transactions_by_person(user_id)
         if not transactions_db:
             return None, 0, 0
 
@@ -83,9 +83,9 @@ class TransactionRepository:
         return transactions, transactions_cash_in, transactions_cash_out
 
     def get_last_transactions(
-        self, person_id: int, limit: int
+        self, user_id: int, limit: int
     ) -> List[Transaction | None]:
-        transactions_db = self.__filter_transactions_by_person(person_id=person_id)
+        transactions_db = self.__filter_transactions_by_person(user_id=user_id)
         if not transactions_db:
             return None
 
@@ -104,9 +104,9 @@ class TransactionRepository:
         return list(islice(transactions, limit))
 
     def filter_transactions_by_account(
-        self, person_id: int, account_id: int
+        self, user_id: int, account_id: int
     ) -> List[Transaction | None]:
-        transactions_db = self.__filter_transactions_by_person(person_id=person_id)
+        transactions_db = self.__filter_transactions_by_person(user_id=user_id)
 
         transactions = [
             Transaction(

@@ -36,11 +36,11 @@ class AccountResource(Resource):
         current_person = get_jwt_identity()
         daily_withdrawal_limit = data.get("daily_withdrawal_limit", None)
         account_type = data.get("account_type", None)
-        person_id = current_person.get("id")
+        user_id = current_person.get("id")
 
         new_account = Account(
             daily_withdrawal_limit=daily_withdrawal_limit,
-            person_id=person_id,
+            user_id=user_id,
             account_type=account_type,
             is_active=True,
             amount=0.0,
@@ -60,7 +60,7 @@ class AccountsMeResource(Resource):
         accounts_usecase = AccountsMeUseCase(
             account_repository=AccountRepository(db.session),
         )
-        return accounts_usecase(person_id=current_person.get("id"))
+        return accounts_usecase(user_id=current_person.get("id"))
 
 
 class AccountDetailResource(Resource):
@@ -72,7 +72,7 @@ class AccountDetailResource(Resource):
             account_repository=AccountRepository(db.session),
         )
         return account_usecase(
-            account_id=account_id, person_id=current_person.get("id")
+            account_id=account_id, user_id=current_person.get("id")
         )
 
     @jwt_required()
@@ -90,7 +90,7 @@ class AccountDetailResource(Resource):
             account_repository=AccountRepository(db.session),
         )
         return account(
-            account_id=account_id, person_id=current_person.get("id"), **data
+            account_id=account_id, user_id=current_person.get("id"), **data
         )
 
 
@@ -137,7 +137,7 @@ class AccountWithdrawResource(Resource):
             transaction_repository=TransactionRepository(db.session),
         )
         return account_usecase(
-            account=account_deposit, person_id=current_person.get("id")
+            account=account_deposit, user_id=current_person.get("id")
         )
 
 
@@ -149,5 +149,5 @@ class GetTransactionsByAccountResource(Resource):
             transaction_repository=TransactionRepository(db.session),
         )
         return transactions_usecase(
-            account_id=account_id, person_id=current_person.get("id")
+            account_id=account_id, user_id=current_person.get("id")
         )

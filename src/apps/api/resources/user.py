@@ -12,7 +12,7 @@ from src.apps.api.adapters import UserRequestAdapter
 from src.domain.entities import User
 from src.apps.usecases import (
     CreatePersonUseCase,
-    PersonMeUseCase,
+    UserMeUseCase,
     PersonDashboardUseCase,
 )
 
@@ -44,16 +44,18 @@ class UserResource(Resource):
         )
         return person(request_person)
 
+
+class UserMeResource(Resource):
     @jwt_required()
     def get(self):
         current_user = get_jwt_identity()
 
-        person = PersonMeUseCase(
-            person_repository=UserRepository(db.session),
+        user = UserMeUseCase(
+            user_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
 
-        return person(person_id=current_user.get("id"))
+        return user(user_id=current_user.get("id"))
 
 
 class PersonDashboardResource(Resource):
@@ -66,4 +68,4 @@ class PersonDashboardResource(Resource):
             account_repository=AccountRepository(db.session),
         )
 
-        return person_dashboard(person_id=current_user.get("id"))
+        return person_dashboard(user_id=current_user.get("id"))

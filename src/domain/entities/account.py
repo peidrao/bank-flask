@@ -5,7 +5,7 @@ from datetime import date
 @dataclass
 class Account:
     id: int = None
-    person_id: int = None
+    user_id: int = None
     amount: float = None
     daily_withdrawal_limit: float = None
     is_active: bool = None

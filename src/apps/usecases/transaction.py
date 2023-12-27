@@ -11,11 +11,11 @@ class GetLastWithdrawsUseCase:
 
     def __call__(
         self,
-        person_id: int,
+        user_id: int,
         limit: int,
     ):
         transactions_db = self.transaction_repository.get_last_transactions(
-            person_id=person_id, limit=limit
+            user_id=user_id, limit=limit
         )
 
         if not transactions_db:

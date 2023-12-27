@@ -66,7 +66,7 @@ def test_filter_transactions_by_person_no_transactions(transaction_repository, p
         transactions,
         cash_in,
         cash_out,
-    ) = transaction_repository.filter_transactions_by_person(person_id=person.id)
+    ) = transaction_repository.filter_transactions_by_person(user_id=person.id)
 
     assert transactions is None
     assert cash_in == 0

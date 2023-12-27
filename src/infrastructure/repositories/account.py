@@ -10,7 +10,7 @@ class AccountRepository:
 
     def create(self, account: Account) -> Account:
         account_db = AccountTable(
-            person_id=account.person_id,
+            user_id=account.user_id,
             account_type=account.account_type,
             daily_withdrawal_limit=account.daily_withdrawal_limit,
         )
@@ -20,14 +20,14 @@ class AccountRepository:
         account.created_at = account_db.created_at
         return account
 
-    def get_by_person_id(self, person_id: int) -> Optional[Account]:
-        account_db = AccountTable.query.filter_by(person_id=person_id).first()
+    def get_by_user_id(self, user_id: int) -> Optional[Account]:
+        account_db = AccountTable.query.filter_by(user_id=user_id).first()
         if not account_db:
             return None
         account = Account(
             id=account_db.id,
             amount=account_db.amount,
-            person_id=account_db.person_id,
+            user_id=account_db.user_id,
             daily_withdrawal_limit=account_db.daily_withdrawal_limit,
             is_active=account_db.is_active,
             account_type=account_db.account_type,
@@ -42,7 +42,7 @@ class AccountRepository:
         account = Account(
             id=account_db.id,
             amount=account_db.amount,
-            person_id=account_db.person_id,
+            user_id=account_db.user_id,
             daily_withdrawal_limit=account_db.daily_withdrawal_limit,
             is_active=account_db.is_active,
             account_type=account_db.account_type,
@@ -59,7 +59,7 @@ class AccountRepository:
         accounts = [
             Account(
                 id=account.id,
-                person_id=account.person_id,
+                user_id=account.user_id,
                 amount=account.amount,
                 daily_withdrawal_limit=account.daily_withdrawal_limit,
                 is_active=account.is_active,
@@ -85,7 +85,7 @@ class AccountRepository:
         account = Account(
             id=account_db.id,
             amount=account_db.amount,
-            person_id=account_db.person_id,
+            user_id=account_db.user_id,
             daily_withdrawal_limit=account_db.daily_withdrawal_limit,
             is_active=account_db.is_active,
             account_type=account_db.account_type,
@@ -93,8 +93,8 @@ class AccountRepository:
         )
         return account
 
-    def get_accounts_info(self, person_id: int) -> Tuple[float, int]:
-        accounts_db = AccountTable.query.filter_by(person_id=person_id).all()
+    def get_accounts_info(self, user_id: int) -> Tuple[float, int]:
+        accounts_db = AccountTable.query.filter_by(user_id=user_id).all()
 
         if not accounts_db:
             return 0, 0
