@@ -11,7 +11,7 @@ from src.infrastructure.repositories import (
 from src.apps.api.adapters import UserRequestAdapter
 from src.domain.entities import User
 from src.apps.usecases import (
-    CreatePersonUseCase,
+    CreateUserUseCase,
     UserMeUseCase,
     PersonDashboardUseCase,
 )
@@ -38,8 +38,8 @@ class UserResource(Resource):
             cpf=cpf,
         )
 
-        person = CreatePersonUseCase(
-            person_repository=UserRepository(db.session),
+        person = CreateUserUseCase(
+            user_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
         return person(request_person)

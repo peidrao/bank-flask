@@ -84,7 +84,7 @@ class AccountDetailResource(Resource):
         current_person = get_jwt_identity()
 
         account = AccountUpdateUseCase(
-            person_repository=UserRepository(db.session),
+            user_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
         return account(
@@ -107,7 +107,7 @@ class AccountDepositResource(Resource):
         account_deposit = AccountDeposit(value=value, account=account)
 
         account_usecase = AccountDepositUseCase(
-            person_repository=UserRepository(db.session),
+            user_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
             transaction_repository=TransactionRepository(db.session),
         )
@@ -130,7 +130,7 @@ class AccountWithdrawResource(Resource):
         account_deposit = AccountDeposit(value=value, account=account)
 
         account_usecase = AccountWithdrawUseCase(
-            person_repository=UserRepository(db.session),
+            user_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
             transaction_repository=TransactionRepository(db.session),
         )

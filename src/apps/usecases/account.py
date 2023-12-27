@@ -7,10 +7,10 @@ from src.infrastructure.repositories.transaction import TransactionRepository
 class AccountUpdateUseCase:
     def __init__(
         self,
-        person_repository: UserRepository,
+        user_repository: UserRepository,
         account_repository: AccountRepository,
     ):
-        self.person_repository = person_repository
+        self.user_repository = user_repository
         self.account_repository = account_repository
 
     def __call__(self, account_id: int, user_id, **kwargs):
@@ -31,11 +31,11 @@ class AccountUpdateUseCase:
 class AccountDepositUseCase:
     def __init__(
         self,
-        person_repository: UserRepository,
+        user_repository: UserRepository,
         account_repository: AccountRepository,
         transaction_repository: TransactionRepository,
     ):
-        self.person_repository = person_repository
+        self.user_repository = user_repository
         self.account_repository = account_repository
         self.transaction_repository = transaction_repository
 
@@ -98,11 +98,11 @@ class AccountGetUseCase:
 class AccountWithdrawUseCase:
     def __init__(
         self,
-        person_repository: UserRepository,
+        user_repository: UserRepository,
         account_repository: AccountRepository,
         transaction_repository: TransactionRepository,
     ):
-        self.person_repository = person_repository
+        self.user_repository = user_repository
         self.account_repository = account_repository
         self.transaction_repository = transaction_repository
 

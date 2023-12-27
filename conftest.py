@@ -93,5 +93,5 @@ def create_account(account_repository: AccountRepository):
 
 
 @pytest.fixture
-def person_repository(db) -> UserRepository:
+def user_repository(db) -> UserRepository:
     return UserRepository(session=db.session)
