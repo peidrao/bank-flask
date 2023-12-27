@@ -3,14 +3,7 @@ from werkzeug.security import check_password_hash
 
 from src.infrastructure.database import UserTable
 from src.domain.entities import User
-
-
-class RepositoryError(Exception):
-    """Custom exception for repository layer errors."""
-    def __init__(self, message, status_code=500):
-        self.message = message
-        self.status_code = status_code
-        super().__init__(message)
+from src.domain.exceptions import RepositoryErrorException
 
 
 class UserRepository:
@@ -20,7 +13,7 @@ class UserRepository:
     def create(self, person: User) -> User:
         user_db = UserTable.query.filter_by(email=person.email).first()
         if user_db:
-            raise RepositoryError(
+            raise RepositoryErrorException(
                 "Já existe um usuário com esse e-mail",
                 status_code=400
             )
