@@ -9,7 +9,6 @@ class Account:
     amount: float = None
     daily_withdrawal_limit: float = None
     is_active: bool = None
-    account_type: int = None
     created_at: date = None
 
 

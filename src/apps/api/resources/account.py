@@ -35,13 +35,11 @@ class AccountResource(Resource):
 
         current_person = get_jwt_identity()
         daily_withdrawal_limit = data.get("daily_withdrawal_limit", None)
-        account_type = data.get("account_type", None)
         user_id = current_person.get("id")
 
         new_account = Account(
             daily_withdrawal_limit=daily_withdrawal_limit,
             user_id=user_id,
-            account_type=account_type,
             is_active=True,
             amount=0.0,
         )

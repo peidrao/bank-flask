@@ -11,7 +11,6 @@ class AccountRepository:
     def create(self, account: Account) -> Account:
         account_db = AccountTable(
             user_id=account.user_id,
-            account_type=account.account_type,
             daily_withdrawal_limit=account.daily_withdrawal_limit,
         )
         self.session.add(account_db)
@@ -30,7 +29,6 @@ class AccountRepository:
             user_id=account_db.user_id,
             daily_withdrawal_limit=account_db.daily_withdrawal_limit,
             is_active=account_db.is_active,
-            account_type=account_db.account_type,
             created_at=account_db.created_at,
         )
         return account
@@ -45,7 +43,6 @@ class AccountRepository:
             user_id=account_db.user_id,
             daily_withdrawal_limit=account_db.daily_withdrawal_limit,
             is_active=account_db.is_active,
-            account_type=account_db.account_type,
             created_at=account_db.created_at,
         )
         return account
@@ -63,7 +60,6 @@ class AccountRepository:
                 amount=account.amount,
                 daily_withdrawal_limit=account.daily_withdrawal_limit,
                 is_active=account.is_active,
-                account_type=account.account_type,
                 created_at=account.created_at,
             )
             for account in accounts_db
@@ -88,7 +84,6 @@ class AccountRepository:
             user_id=account_db.user_id,
             daily_withdrawal_limit=account_db.daily_withdrawal_limit,
             is_active=account_db.is_active,
-            account_type=account_db.account_type,
             created_at=account_db.created_at,
         )
         return account

@@ -19,7 +19,7 @@ class CreatePersonUseCase:
             person = self.user_repository.create(request)
             self.account_repository.create(
                 Account(
-                    user_id=person.id, account_type=1, daily_withdrawal_limit=200.00
+                    user_id=person.id, daily_withdrawal_limit=200.00
                 )
             )
         except:

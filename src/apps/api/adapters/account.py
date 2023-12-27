@@ -9,5 +9,4 @@ class AccountOperationsRequestAdapter(Schema):
 
 class AccountRequestAdapter(Schema):
     daily_withdrawal_limit = fields.Float(required=False, allow_none=True)
-    account_type = fields.Int(required=False, allow_none=True)
     is_active = fields.Bool(required=False, allow_none=True)
