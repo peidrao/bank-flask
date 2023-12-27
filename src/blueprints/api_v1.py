@@ -1,6 +1,6 @@
 from src.apps.api.routes import (
     auth_blueprint,
-    person_blueprint,
+    user_blueprint,
     account_blueprint,
     transaction_blueprint,
 )
@@ -9,6 +9,6 @@ from src.apps.api.routes import (
 def init_app(app):
     """Initialize blueprints"""
     app.register_blueprint(auth_blueprint)
-    app.register_blueprint(person_blueprint)
+    app.register_blueprint(user_blueprint)
     app.register_blueprint(account_blueprint)
     app.register_blueprint(transaction_blueprint)

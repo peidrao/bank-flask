@@ -19,7 +19,7 @@ auth_routes = [("/token", "AuthResource")]
 auth_blueprint = register_resource("auth", resources.AuthResource, auth_routes)
 
 user_routes = [("/", "UserResource"), ("/dashboard", "PersonDashboardResource")]
-person_blueprint = register_resource("users", resources.UserResource, user_routes)
+user_blueprint = register_resource("users", resources.UserResource, user_routes)
 
 account_routes = [
     ("/", "AccountResource"),
