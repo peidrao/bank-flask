@@ -11,8 +11,8 @@ class GetLastWithdrawsResource(Resource):
     @jwt_required()
     def get(self):
         limit = int(request.args.get("limit", 0))
-        current_person = get_jwt_identity()
+        current_user = get_jwt_identity()
         withdraws_usecase = GetLastWithdrawsUseCase(
             transaction_repository=TransactionRepository(db.session),
         )
-        return withdraws_usecase(limit=limit, user_id=current_person.get("id"))
+        return withdraws_usecase(limit=limit, user_id=current_user.get("id"))

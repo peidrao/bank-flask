@@ -13,7 +13,7 @@ from src.domain.entities import User
 from src.apps.usecases import (
     CreateUserUseCase,
     UserMeUseCase,
-    PersonDashboardUseCase,
+    UserDashboardUseCase,
 )
 
 from src.ext.database import db
@@ -58,14 +58,14 @@ class UserMeResource(Resource):
         return user(user_id=current_user.get("id"))
 
 
-class PersonDashboardResource(Resource):
+class UserDashboardResource(Resource):
     @jwt_required()
     def get(self):
         current_user = get_jwt_identity()
 
-        person_dashboard = PersonDashboardUseCase(
+        user_dashboard = UserDashboardUseCase(
             transaction_repository=TransactionRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
 
-        return person_dashboard(user_id=current_user.get("id"))
+        return user_dashboard(user_id=current_user.get("id"))

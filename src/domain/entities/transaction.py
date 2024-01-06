@@ -8,4 +8,4 @@ class Transaction:
     account_id: int = None
     value: float = None
     type: str = None
-    transaction_date: date = None
+    created_at: date = None

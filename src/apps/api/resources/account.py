@@ -33,9 +33,9 @@ class AccountResource(Resource):
         except ValidationError as e:
             return {"message": str(e)}, 400
 
-        current_person = get_jwt_identity()
+        current_user = get_jwt_identity()
         daily_withdrawal_limit = data.get("daily_withdrawal_limit", None)
-        user_id = current_person.get("id")
+        user_id = current_user.get("id")
 
         new_account = Account(
             daily_withdrawal_limit=daily_withdrawal_limit,
@@ -53,24 +53,24 @@ class AccountResource(Resource):
 class AccountsMeResource(Resource):
     @jwt_required()
     def get(self):
-        current_person = get_jwt_identity()
+        current_user = get_jwt_identity()
 
         accounts_usecase = AccountsMeUseCase(
             account_repository=AccountRepository(db.session),
         )
-        return accounts_usecase(user_id=current_person.get("id"))
+        return accounts_usecase(user_id=current_user.get("id"))
 
 
 class AccountDetailResource(Resource):
     @jwt_required()
     def get(self, account_id: int):
-        current_person = get_jwt_identity()
+        current_user = get_jwt_identity()
 
         account_usecase = AccountGetUseCase(
             account_repository=AccountRepository(db.session),
         )
         return account_usecase(
-            account_id=account_id, user_id=current_person.get("id")
+            account_id=account_id, user_id=current_user.get("id")
         )
 
     @jwt_required()
@@ -81,14 +81,14 @@ class AccountDetailResource(Resource):
         except ValidationError as e:
             return {"message": str(e)}, 400
 
-        current_person = get_jwt_identity()
+        current_user = get_jwt_identity()
 
         account = AccountUpdateUseCase(
             user_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
         return account(
-            account_id=account_id, user_id=current_person.get("id"), **data
+            account_id=account_id, user_id=current_user.get("id"), **data
         )
 
 
@@ -123,7 +123,7 @@ class AccountWithdrawResource(Resource):
         except ValidationError as e:
             return {"message": str(e)}, 400
 
-        current_person = get_jwt_identity()
+        current_user = get_jwt_identity()
         value = data.get("value", None)
         account = data.get("account", None)
 
@@ -135,17 +135,17 @@ class AccountWithdrawResource(Resource):
             transaction_repository=TransactionRepository(db.session),
         )
         return account_usecase(
-            account=account_deposit, user_id=current_person.get("id")
+            account=account_deposit, user_id=current_user.get("id")
         )
 
 
 class GetTransactionsByAccountResource(Resource):
     @jwt_required()
     def get(self, account_id: int):
-        current_person = get_jwt_identity()
+        current_user = get_jwt_identity()
         transactions_usecase = AccountTransactionsUseCase(
             transaction_repository=TransactionRepository(db.session),
         )
         return transactions_usecase(
-            account_id=account_id, user_id=current_person.get("id")
+            account_id=account_id, user_id=current_user.get("id")
         )

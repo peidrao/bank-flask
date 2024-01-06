@@ -54,7 +54,7 @@ class UserMeUseCase:
         return jsonify(response)
 
 
-class PersonDashboardUseCase:
+class UserDashboardUseCase:
     def __init__(
         self,
         account_repository: AccountRepository,

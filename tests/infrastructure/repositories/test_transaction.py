@@ -27,19 +27,19 @@ def test_get_aggregate_value_in_one_day(transaction_repository):
             "value": 50.0,
             "type": "-",
             "account_id": account_id,
-            "transaction_date": today,
+            "created_at": today,
         },
         {
             "value": 30.0,
             "type": "-",
             "account_id": account_id,
-            "transaction_date": today,
+            "created_at": today,
         },
         {
             "value": 20.0,
             "type": "+",
             "account_id": account_id,
-            "transaction_date": today,
+            "created_at": today,
         },
     ]
 

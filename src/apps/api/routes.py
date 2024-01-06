@@ -9,7 +9,7 @@ BLUEPRINTS = [
         [
             (resources.UserResource, "/"),
             (resources.UserMeResource, "/me"),
-            (resources.PersonDashboardResource, "/dashboard"),
+            (resources.UserDashboardResource, "/dashboard"),
         ],
     ),
     (

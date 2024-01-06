@@ -34,7 +34,7 @@ class TransactionRepository:
             self.session.query(TransactionTable)
             .filter(TransactionTable.account_id == account_id)
             .filter(TransactionTable.type == "-")
-            .filter(TransactionTable.transaction_date.between(start_of_day, end_of_day))
+            .filter(TransactionTable.created_at.between(start_of_day, end_of_day))
             .all()
         )
 
@@ -51,7 +51,7 @@ class TransactionRepository:
             )
             .join(UserTable, UserTable.id == AccountTable.user_id)
             .filter(UserTable.id == user_id)
-            .order_by(desc(TransactionTable.transaction_date))
+            .order_by(desc(TransactionTable.created_at))
             .all()
         )
 
@@ -75,7 +75,7 @@ class TransactionRepository:
                 account_id=transaction.account_id,
                 value=transaction.value,
                 type=transaction.type,
-                transaction_date=transaction.transaction_date,
+                created_at=transaction.created_at,
             )
             for transaction in transactions_db
         ]
@@ -95,7 +95,7 @@ class TransactionRepository:
                 account_id=transaction.account_id,
                 value=transaction.value,
                 type=transaction.type,
-                transaction_date=transaction.transaction_date,
+                created_at=transaction.created_at,
             )
             for transaction in transactions_db
             if transaction.type == "-"
@@ -114,7 +114,7 @@ class TransactionRepository:
                 account_id=transaction.account_id,
                 value=transaction.value,
                 type=transaction.type,
-                transaction_date=transaction.transaction_date,
+                created_at=transaction.created_at,
             )
             for transaction in transactions_db
             if transaction.account_id == account_id
