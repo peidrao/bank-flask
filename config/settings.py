@@ -15,8 +15,6 @@ class Config(object):
         "src.blueprints.api_v1",
     ]
 
-    THIS_PATH = os.path.dirname(__file__)
-    PROJECT_ROOT = os.path.abspath(os.path.dirname(THIS_PATH))
     SECRET_KEY = config("SECRET_KEY")
 
     SQLALCHEMY_DATABASE_URI = config("SQLALCHEMY_DATABASE_URI")
