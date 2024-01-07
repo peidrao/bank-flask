@@ -20,7 +20,7 @@ class UserRepository:
 
         user_db = UserTable(
             email=user.email,
-            full_name=user.name,
+            full_name=user.full_name,
             cpf=user.cpf,
         )
         user_db.set_password(user.password)
