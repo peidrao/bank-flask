@@ -1,11 +1,12 @@
-from marshmallow import ValidationError
 import pytest
 from src.domain.entities.user import User
+from src.domain.exceptions import RepositoryErrorException
+
 
 
 def test_create_creates_person_successfully(user_repository):
     person = User(
-        name="John Doe",
+        full_name="John Doe",
         email="johndoe@example.com",
         cpf="12345678901",
         password="test1",
@@ -13,21 +14,21 @@ def test_create_creates_person_successfully(user_repository):
     created_person = user_repository.create(person)
 
     assert created_person.id is not None
-    assert created_person.name == "John Doe"
+    assert created_person.full_name == "John Doe"
     assert created_person.email == "johndoe@example.com"
 
 
 def test_create_raises_validation_error_if_email_already_exists(user_repository):
     person1 = User(
-        name="Alice", email="alice@example.com", cpf="11111111111", password="oi"
+        full_name="Alice", email="alice@example.com", cpf="11111111111", password="oi"
     )
     user_repository.create(person1)
 
     person2 = User(
-        name="Bob", email="alice@example.com", cpf="22222222222", password="oisas"
+        full_name="Bob", email="alice@example.com", cpf="22222222222", password="oisas"
     )
 
-    with pytest.raises(ValidationError):
+    with pytest.raises(RepositoryErrorException):
         user_repository.create(person2)
 
 
