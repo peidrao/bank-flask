@@ -14,5 +14,4 @@ def init_app(app):
         BankTable,
     )
 
-    """Initialize database"""
     db.init_app(app)
