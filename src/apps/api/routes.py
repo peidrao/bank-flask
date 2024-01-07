@@ -1,6 +1,5 @@
 from src.apps.api import resources
 
-API_PREFIX = "/api/v1"
 BLUEPRINTS = [
     ("auth", "/auth", [(resources.AuthResource, "/token")]),
     (

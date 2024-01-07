@@ -1,10 +1,10 @@
-from src.apps.api.routes import BLUEPRINTS, API_PREFIX
+from src.apps.api.routes import BLUEPRINTS
 from flask import Blueprint
 from flask_restful import Api
 
 
 def init_app(app):
-    """Initialize blueprints"""
+    API_PREFIX = "/api/v1"
 
     def register_resources(api, resources_list):
         for resource, route in resources_list:
