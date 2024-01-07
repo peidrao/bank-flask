@@ -61,12 +61,12 @@ def test_get_aggregate_value_in_one_day_no_transactions(transaction_repository):
     assert total_value == 0.0
 
 
-def test_filter_transactions_by_person_no_transactions(transaction_repository, person):
+def test_filter_transactions_by_person_no_transactions(transaction_repository, user):
     (
         transactions,
         cash_in,
         cash_out,
-    ) = transaction_repository.filter_transactions_by_person(user_id=person.id)
+    ) = transaction_repository.filter_transactions_by_person(user_id=user.id)
 
     assert transactions is None
     assert cash_in == 0
