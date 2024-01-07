@@ -17,3 +17,6 @@ db.migrate:
 fmt:
 	ruff check . --fix
 	ruff format .
+
+test:
+	pytest
