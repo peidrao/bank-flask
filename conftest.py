@@ -59,9 +59,8 @@ def person(db, fake) -> UserRepository:
     person_data = {
         "email": fake.email(),
         "password": "test12345",
-        "name": fake.name(),
+        "full_name": fake.name(),
         "cpf": fake.cpf(),
-        "birth_date": fake.date_of_birth(),
     }
     person = UserTable(**person_data)
     person.set_password("test12345")
