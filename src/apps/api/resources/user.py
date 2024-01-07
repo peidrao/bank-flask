@@ -38,11 +38,11 @@ class UserResource(Resource):
             cpf=cpf,
         )
 
-        person = CreateUserUseCase(
+        user = CreateUserUseCase(
             user_repository=UserRepository(db.session),
             account_repository=AccountRepository(db.session),
         )
-        return person(request_person)
+        return user(request_person)
 
 
 class UserMeResource(Resource):

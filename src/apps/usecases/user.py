@@ -16,10 +16,10 @@ class CreateUserUseCase:
 
     def __call__(self, request: User):
         try:
-            person = self.user_repository.create(request)
+            user = self.user_repository.create(request)
             self.account_repository.create(
                 Account(
-                    user_id=person.id, daily_withdrawal_limit=200.00
+                    user_id=user.id, daily_withdrawal_limit=200.00
                 )
             )
         except Exception as exc:
@@ -38,16 +38,16 @@ class UserMeUseCase:
         self.account_repository = account_repository
 
     def __call__(self, user_id: int):
-        person = self.user_repository.get(user_id)
+        user = self.user_repository.get(user_id)
 
-        if person:
+        if user:
             account = self.account_repository.get_by_user_id(user_id)
 
         response = User(
-            id=person.id,
-            full_name=person.full_name,
-            email=person.email,
-            cpf=person.cpf,
+            id=user.id,
+            full_name=user.full_name,
+            email=user.email,
+            cpf=user.cpf,
             account=account,
         )
 

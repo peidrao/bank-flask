@@ -55,20 +55,20 @@ def authenticated_header():
 
 
 @pytest.fixture
-def person(db, fake) -> UserRepository:
-    person_data = {
+def user(db, fake) -> UserRepository:
+    user_data = {
         "email": fake.email(),
         "password": "test12345",
         "full_name": fake.name(),
         "cpf": fake.cpf(),
     }
-    person = UserTable(**person_data)
-    person.set_password("test12345")
+    user = UserTable(**user_data)
+    user.set_password("test12345")
 
-    db.session.add(person)
+    db.session.add(user)
     db.session.commit()
 
-    return person
+    return user
 
 
 @pytest.fixture
