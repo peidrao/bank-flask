@@ -22,5 +22,3 @@ class Config(object):
     JWT_SECRET_KEY = config("JWT_SECRET_KEY")
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(30)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(60)
-
-    BANK_REQUESTS = config("BANK_REQUESTS")
