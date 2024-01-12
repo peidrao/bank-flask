@@ -17,7 +17,7 @@ def createbanks():
     from src.infrastructure.database import BankTable
 
     bank_repository = BankRepository(db.session)
-    response = requests.get(Config.BANK_REQUESTS)
+    response = requests.get(Config)
 
     if response.status_code == 200:
         banks_list = response.json()["payload"]["blob"]["csv"][1:51]
