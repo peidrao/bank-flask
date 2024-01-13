@@ -1,6 +1,5 @@
 import requests
 from app import create_app
-from config import Config
 
 app = create_app()
 
@@ -11,13 +10,31 @@ def manage():
 
 
 @manage.command()
+def createsuperuser():
+    from src.ext.database import db
+    from src.infrastructure.repositories import UserRepository
+    from src.domain.entities import User
+
+    user_repository = UserRepository(db.session)
+    user_repository.create(
+        User(
+            is_superuser=True,
+            email="superuser@email.com",
+            full_name="Super User",
+            cpf="11122233344",
+            password="123",
+        )
+    )
+
+
+@manage.command()
 def createbanks():
     from src.ext.database import db
     from src.infrastructure.repositories import BankRepository
     from src.infrastructure.database import BankTable
 
     bank_repository = BankRepository(db.session)
-    response = requests.get(Config)
+    response = requests.get()
 
     if response.status_code == 200:
         banks_list = response.json()["payload"]["blob"]["csv"][1:51]

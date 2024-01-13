@@ -18,5 +18,8 @@ fmt:
 	ruff check . --fix
 	ruff format .
 
+populate.create_superuser:
+	python manage.py createsuperuser
+
 test:
 	pytest
