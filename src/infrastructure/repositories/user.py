@@ -14,19 +14,18 @@ class UserRepository:
         user_db = UserTable.query.filter_by(email=user.email).first()
         if user_db:
             raise RepositoryErrorException(
-                "Já existe um usuário com esse e-mail",
-                status_code=400
+                "Já existe um usuário com esse e-mail", status_code=400
             )
-
-        user_db = UserTable(
+        new_user = UserTable(
             email=user.email,
             full_name=user.full_name,
             cpf=user.cpf,
+            is_superuser=user.is_superuser,
         )
-        user_db.set_password(user.password)
-        self.session.add(user_db)
+        new_user.set_password(user.password)
+        self.session.add(new_user)
         self.session.commit()
-        user.id = user_db.id
+        user.id = new_user.id
         return user
 
     def get(self, id: int) -> Optional[User]:
