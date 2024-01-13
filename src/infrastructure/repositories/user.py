@@ -58,7 +58,7 @@ class UserRepository:
 
         if not user:
             return None
-
+        
         if check_password_hash(user.password, password):
             return user
 

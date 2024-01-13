@@ -15,16 +15,21 @@ def createsuperuser():
     from src.infrastructure.repositories import UserRepository
     from src.domain.entities import User
 
+    print('Criando Super Usuário...')
     user_repository = UserRepository(db.session)
-    user_repository.create(
-        User(
-            is_superuser=True,
-            email="superuser@email.com",
-            full_name="Super User",
-            cpf="11122233344",
-            password="123",
+    try:
+        user_repository.create(
+            User(
+                is_superuser=True,
+                email="superuser@email.com",
+                full_name="Super User",
+                cpf="11122233344",
+                password="123",
+            )
         )
-    )
+        print('Usuário criado com sucesso')
+    except Exception as err:
+        print('Erro: ', err)
 
 
 @manage.command()
